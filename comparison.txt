@@ -1,1 +1,22 @@
-dawdawdwd
+
+comparison_long poll_vs_websockets_sse
+
+Long Polling : 
+It requires everytime 3 way trips
+Timeouts via/from proxy server if waited for too long.
+For php apps keep memory occuiped till the connection closes.
+
+Short Polling : 
+Multiple calls are required.
+
+Websockets:
+suited best for frequent 2 way communication.
+Multiplexing over http/2 not possible since web socket is different protocol.
+without ssl webcoskets dont work across.
+
+
+Server sent events:
+Can work with http/2 multiplexing.
+Provides more advantage as http/2 + sterams.
+Unique ID can be used to idenitfy each message, which is helpful for fetching lost data on re-connection.
+Connection doesnt close like Long polling after data transfer so can be helpful in streaming data.
