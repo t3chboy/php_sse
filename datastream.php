@@ -53,7 +53,7 @@ foreach($ch as $key => $urlValue){
     flush(); // flushes the php buffer data to web server
     curl_multi_remove_handle($mh, $ch[$key]);
 
-    sleep(2);// delay added for testing
+    sleep(5);// delay added for testing
     
     if( $i == $totalUrlCount){
       echo "data:END". PHP_EOL; //END string used to ask client close stream connection forever.
@@ -64,7 +64,6 @@ foreach($ch as $key => $urlValue){
 }	
     
 }
- 
 sendMsg();
 
 /**
