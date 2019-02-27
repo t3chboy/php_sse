@@ -40,7 +40,7 @@ $("#submiturl").click( () => {
   data: $("#urlform").serialize(),
   success :function( response ){
   	$("#stream").append("<br>Requesting Server to stream data");
-  	startFetching( response )
+  	startFetching();
   },
   dataType: "text"
 });
@@ -52,13 +52,14 @@ $("#addmorebutton").click(  () => {
 	$('<br>').insertAfter("#texturl");
 });
 
-function startFetching( response ){	
-	var stream = new EventSource('datastream.php/?searchID='+response);
-
+function startFetching(){	
+	var stream = new EventSource('datastream.php');
+	$("#streamdata").append("<p>Streaming data will be displayed here</p>");
 	stream.addEventListener('message', function (event) {
 	    console.log(event.data);
-	    $("#streamdata").append("<p>Stream Data Received:</p>");
+	    
 	    if( event.data === 'END' ){ //close the stream connection.
+	    	$("#streamdata").append("<p>Data transfet complete, connection has been closed with server.</p>");
 	    	stream.close();
 	    }else if(event.data == ""){
 	    	$("#streamdata").append("<br/>NA");
