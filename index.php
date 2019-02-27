@@ -22,6 +22,13 @@
 	 	<input type="button" value="submit" id="submiturl">
 	 </div>
 </form>
+<div id="stream">
+	
+</div>
+<div id="streamdata">
+	
+
+</div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script language="javascript">
@@ -32,6 +39,7 @@ $("#submiturl").click( () => {
   method: "POST",
   data: $("#urlform").serialize(),
   success :function( response ){
+  	$("#stream").append("<br>Requesting Server to stream data");
   	startFetching( response )
   },
   dataType: "text"
@@ -49,8 +57,14 @@ function startFetching( response ){
 
 	stream.addEventListener('message', function (event) {
 	    console.log(event.data);
+	    $("#streamdata").append("<p>Stream Data Received:</p>");
 	    if( event.data === 'END' ){ //close the stream connection.
 	    	stream.close();
+	    }else if(event.data == ""){
+	    	$("#streamdata").append("<br/>NA");
+	    }
+	    else{
+	    	$("#streamdata").append("<br/>"+event.data);	
 	    }
 	});
 }
